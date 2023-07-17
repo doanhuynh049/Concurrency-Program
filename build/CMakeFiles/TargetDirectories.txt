@@ -1,0 +1,3 @@
+/home/quat/concurrency/build/CMakeFiles/my_executable.dir
+/home/quat/concurrency/build/CMakeFiles/edit_cache.dir
+/home/quat/concurrency/build/CMakeFiles/rebuild_cache.dir
