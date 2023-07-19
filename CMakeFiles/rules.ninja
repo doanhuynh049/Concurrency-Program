@@ -6,7 +6,7 @@
 # It is included in the main 'build.ninja'.
 
 # =============================================================================
-# Project: HelloWorld
+# Project: Concurrency
 # Configurations: 
 # =============================================================================
 # =============================================================================
@@ -42,7 +42,7 @@ rule CUSTOM_COMMAND
 # Rule for re-running cmake.
 
 rule RERUN_CMAKE
-  command = /usr/bin/cmake --regenerate-during-build -S/home/quat/concurrency -B/home/quat/concurrency
+  command = /usr/bin/cmake --regenerate-during-build -S/home/quat/Concurrency-Program -B/home/quat/Concurrency-Program
   description = Re-running CMake...
   generator = 1
 

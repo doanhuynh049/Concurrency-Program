@@ -1,4 +1,4 @@
-# Install script for directory: /home/quat/concurrency
+# Install script for directory: /home/quat/Concurrency-Program
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/quat/concurrency/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/quat/Concurrency-Program/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

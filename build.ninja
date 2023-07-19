@@ -11,7 +11,7 @@
 # =============================================================================
 
 # =============================================================================
-# Project: HelloWorld
+# Project: Concurrency
 # Configurations: 
 # =============================================================================
 
@@ -34,7 +34,7 @@ include CMakeFiles/rules.ninja
 #############################################
 # Logical path to working directory; prefix for absolute paths.
 
-cmake_ninja_workdir = /home/quat/concurrency/
+cmake_ninja_workdir = /home/quat/Concurrency-Program/
 # =============================================================================
 # Object build statements for EXECUTABLE target my_executable
 
@@ -44,15 +44,36 @@ cmake_ninja_workdir = /home/quat/concurrency/
 
 build cmake_object_order_depends_target_my_executable: phony || CMakeFiles/my_executable.dir
 
-build CMakeFiles/my_executable.dir/src/main.cpp.o: CXX_COMPILER__my_executable_ /home/quat/concurrency/src/main.cpp || cmake_object_order_depends_target_my_executable
+build CMakeFiles/my_executable.dir/src/main.cpp.o: CXX_COMPILER__my_executable_ /home/quat/Concurrency-Program/src/main.cpp || cmake_object_order_depends_target_my_executable
   DEP_FILE = CMakeFiles/my_executable.dir/src/main.cpp.o.d
   FLAGS = -std=gnu++17
   INCLUDES = -I/include
   OBJECT_DIR = CMakeFiles/my_executable.dir
   OBJECT_FILE_DIR = CMakeFiles/my_executable.dir/src
 
-build CMakeFiles/my_executable.dir/src/fork.cpp.o: CXX_COMPILER__my_executable_ /home/quat/concurrency/src/fork.cpp || cmake_object_order_depends_target_my_executable
+build CMakeFiles/my_executable.dir/src/fork.cpp.o: CXX_COMPILER__my_executable_ /home/quat/Concurrency-Program/src/fork.cpp || cmake_object_order_depends_target_my_executable
   DEP_FILE = CMakeFiles/my_executable.dir/src/fork.cpp.o.d
+  FLAGS = -std=gnu++17
+  INCLUDES = -I/include
+  OBJECT_DIR = CMakeFiles/my_executable.dir
+  OBJECT_FILE_DIR = CMakeFiles/my_executable.dir/src
+
+build CMakeFiles/my_executable.dir/src/named-pipe.cpp.o: CXX_COMPILER__my_executable_ /home/quat/Concurrency-Program/src/named-pipe.cpp || cmake_object_order_depends_target_my_executable
+  DEP_FILE = CMakeFiles/my_executable.dir/src/named-pipe.cpp.o.d
+  FLAGS = -std=gnu++17
+  INCLUDES = -I/include
+  OBJECT_DIR = CMakeFiles/my_executable.dir
+  OBJECT_FILE_DIR = CMakeFiles/my_executable.dir/src
+
+build CMakeFiles/my_executable.dir/src/mutex_multithreading.cpp.o: CXX_COMPILER__my_executable_ /home/quat/Concurrency-Program/src/mutex_multithreading.cpp || cmake_object_order_depends_target_my_executable
+  DEP_FILE = CMakeFiles/my_executable.dir/src/mutex_multithreading.cpp.o.d
+  FLAGS = -std=gnu++17
+  INCLUDES = -I/include
+  OBJECT_DIR = CMakeFiles/my_executable.dir
+  OBJECT_FILE_DIR = CMakeFiles/my_executable.dir/src
+
+build CMakeFiles/my_executable.dir/src/multithreading.cpp.o: CXX_COMPILER__my_executable_ /home/quat/Concurrency-Program/src/multithreading.cpp || cmake_object_order_depends_target_my_executable
+  DEP_FILE = CMakeFiles/my_executable.dir/src/multithreading.cpp.o.d
   FLAGS = -std=gnu++17
   INCLUDES = -I/include
   OBJECT_DIR = CMakeFiles/my_executable.dir
@@ -66,9 +87,9 @@ build CMakeFiles/my_executable.dir/src/fork.cpp.o: CXX_COMPILER__my_executable_ 
 #############################################
 # Link the executable build/bin/my_executable
 
-build build/bin/my_executable: CXX_EXECUTABLE_LINKER__my_executable_ CMakeFiles/my_executable.dir/src/main.cpp.o CMakeFiles/my_executable.dir/src/fork.cpp.o
+build build/bin/my_executable: CXX_EXECUTABLE_LINKER__my_executable_ CMakeFiles/my_executable.dir/src/main.cpp.o CMakeFiles/my_executable.dir/src/fork.cpp.o CMakeFiles/my_executable.dir/src/named-pipe.cpp.o CMakeFiles/my_executable.dir/src/mutex_multithreading.cpp.o CMakeFiles/my_executable.dir/src/multithreading.cpp.o
   OBJECT_DIR = CMakeFiles/my_executable.dir
-  POST_BUILD = cd /home/quat/concurrency && /home/quat/concurrency/build/bin/my_executable && /usr/bin/cmake -E remove /home/quat/concurrency/build/bin/my_executable
+  POST_BUILD = cd /home/quat/Concurrency-Program && /home/quat/Concurrency-Program/build/bin/my_executable && /usr/bin/cmake -E remove /home/quat/Concurrency-Program/build/bin/my_executable
   PRE_LINK = :
   TARGET_FILE = build/bin/my_executable
   TARGET_PDB = my_executable.dbg
@@ -78,7 +99,7 @@ build build/bin/my_executable: CXX_EXECUTABLE_LINKER__my_executable_ CMakeFiles/
 # Utility command for edit_cache
 
 build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cd /home/quat/concurrency && /usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  COMMAND = cd /home/quat/Concurrency-Program && /usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
   DESC = No interactive CMake dialog available...
   restat = 1
 
@@ -89,7 +110,7 @@ build edit_cache: phony CMakeFiles/edit_cache.util
 # Utility command for rebuild_cache
 
 build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cd /home/quat/concurrency && /usr/bin/cmake --regenerate-during-build -S/home/quat/concurrency -B/home/quat/concurrency
+  COMMAND = cd /home/quat/Concurrency-Program && /usr/bin/cmake --regenerate-during-build -S/home/quat/Concurrency-Program -B/home/quat/Concurrency-Program
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -107,7 +128,7 @@ build my_executable: phony build/bin/my_executable
 # =============================================================================
 
 #############################################
-# Folder: /home/quat/concurrency
+# Folder: /home/quat/Concurrency-Program
 
 build all: phony build/bin/my_executable
 

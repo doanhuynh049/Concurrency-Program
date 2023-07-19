@@ -1,0 +1,8 @@
+# ninja log v5
+8	535	1689760578667247200	CMakeFiles/my_executable.dir/src/mutex_multithreading.cpp.o	9d897eec53873abb
+2	493	1689757592249109900	CMakeFiles/my_executable.dir/src/multithreading.cpp.o	a7848f40436bdb4b
+3	380	1689760678417782100	CMakeFiles/my_executable.dir/src/main.cpp.o	41072e7deacbf3b2
+7	358	1689647257828751000	CMakeFiles/my_executable.dir/src/named-pipe.cpp.o	c74228eeecace96a
+0	103	1689760693543444800	build.ninja	f796cb25630e0421
+3	523	1689753325779064800	CMakeFiles/my_executable.dir/src/fork.cpp.o	4ef8d1e7b012fdc5
+2	162	0	build/bin/my_executable	bf3c0b158383884a

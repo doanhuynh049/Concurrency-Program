@@ -12,5 +12,7 @@ childProcess();
 void
 implementFork1();
 void
+implementFork12();
+void
 implementShareMemory();
 #endif

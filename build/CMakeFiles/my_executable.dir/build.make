@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/quat/concurrency
+CMAKE_SOURCE_DIR = /home/quat/Concurrency-Program
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/quat/concurrency/build
+CMAKE_BINARY_DIR = /home/quat/Concurrency-Program/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/my_executable.dir/depend.make
@@ -72,48 +72,96 @@ include CMakeFiles/my_executable.dir/flags.make
 CMakeFiles/my_executable.dir/src/main.cpp.o: CMakeFiles/my_executable.dir/flags.make
 CMakeFiles/my_executable.dir/src/main.cpp.o: ../src/main.cpp
 CMakeFiles/my_executable.dir/src/main.cpp.o: CMakeFiles/my_executable.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/quat/concurrency/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/my_executable.dir/src/main.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/my_executable.dir/src/main.cpp.o -MF CMakeFiles/my_executable.dir/src/main.cpp.o.d -o CMakeFiles/my_executable.dir/src/main.cpp.o -c /home/quat/concurrency/src/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/quat/Concurrency-Program/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/my_executable.dir/src/main.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/my_executable.dir/src/main.cpp.o -MF CMakeFiles/my_executable.dir/src/main.cpp.o.d -o CMakeFiles/my_executable.dir/src/main.cpp.o -c /home/quat/Concurrency-Program/src/main.cpp
 
 CMakeFiles/my_executable.dir/src/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/my_executable.dir/src/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/quat/concurrency/src/main.cpp > CMakeFiles/my_executable.dir/src/main.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/quat/Concurrency-Program/src/main.cpp > CMakeFiles/my_executable.dir/src/main.cpp.i
 
 CMakeFiles/my_executable.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/my_executable.dir/src/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/quat/concurrency/src/main.cpp -o CMakeFiles/my_executable.dir/src/main.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/quat/Concurrency-Program/src/main.cpp -o CMakeFiles/my_executable.dir/src/main.cpp.s
 
 CMakeFiles/my_executable.dir/src/fork.cpp.o: CMakeFiles/my_executable.dir/flags.make
 CMakeFiles/my_executable.dir/src/fork.cpp.o: ../src/fork.cpp
 CMakeFiles/my_executable.dir/src/fork.cpp.o: CMakeFiles/my_executable.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/quat/concurrency/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/my_executable.dir/src/fork.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/my_executable.dir/src/fork.cpp.o -MF CMakeFiles/my_executable.dir/src/fork.cpp.o.d -o CMakeFiles/my_executable.dir/src/fork.cpp.o -c /home/quat/concurrency/src/fork.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/quat/Concurrency-Program/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/my_executable.dir/src/fork.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/my_executable.dir/src/fork.cpp.o -MF CMakeFiles/my_executable.dir/src/fork.cpp.o.d -o CMakeFiles/my_executable.dir/src/fork.cpp.o -c /home/quat/Concurrency-Program/src/fork.cpp
 
 CMakeFiles/my_executable.dir/src/fork.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/my_executable.dir/src/fork.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/quat/concurrency/src/fork.cpp > CMakeFiles/my_executable.dir/src/fork.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/quat/Concurrency-Program/src/fork.cpp > CMakeFiles/my_executable.dir/src/fork.cpp.i
 
 CMakeFiles/my_executable.dir/src/fork.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/my_executable.dir/src/fork.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/quat/concurrency/src/fork.cpp -o CMakeFiles/my_executable.dir/src/fork.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/quat/Concurrency-Program/src/fork.cpp -o CMakeFiles/my_executable.dir/src/fork.cpp.s
+
+CMakeFiles/my_executable.dir/src/named-pipe.cpp.o: CMakeFiles/my_executable.dir/flags.make
+CMakeFiles/my_executable.dir/src/named-pipe.cpp.o: ../src/named-pipe.cpp
+CMakeFiles/my_executable.dir/src/named-pipe.cpp.o: CMakeFiles/my_executable.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/quat/Concurrency-Program/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/my_executable.dir/src/named-pipe.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/my_executable.dir/src/named-pipe.cpp.o -MF CMakeFiles/my_executable.dir/src/named-pipe.cpp.o.d -o CMakeFiles/my_executable.dir/src/named-pipe.cpp.o -c /home/quat/Concurrency-Program/src/named-pipe.cpp
+
+CMakeFiles/my_executable.dir/src/named-pipe.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/my_executable.dir/src/named-pipe.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/quat/Concurrency-Program/src/named-pipe.cpp > CMakeFiles/my_executable.dir/src/named-pipe.cpp.i
+
+CMakeFiles/my_executable.dir/src/named-pipe.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/my_executable.dir/src/named-pipe.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/quat/Concurrency-Program/src/named-pipe.cpp -o CMakeFiles/my_executable.dir/src/named-pipe.cpp.s
+
+CMakeFiles/my_executable.dir/src/mutex_multithreading.cpp.o: CMakeFiles/my_executable.dir/flags.make
+CMakeFiles/my_executable.dir/src/mutex_multithreading.cpp.o: ../src/mutex_multithreading.cpp
+CMakeFiles/my_executable.dir/src/mutex_multithreading.cpp.o: CMakeFiles/my_executable.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/quat/Concurrency-Program/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/my_executable.dir/src/mutex_multithreading.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/my_executable.dir/src/mutex_multithreading.cpp.o -MF CMakeFiles/my_executable.dir/src/mutex_multithreading.cpp.o.d -o CMakeFiles/my_executable.dir/src/mutex_multithreading.cpp.o -c /home/quat/Concurrency-Program/src/mutex_multithreading.cpp
+
+CMakeFiles/my_executable.dir/src/mutex_multithreading.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/my_executable.dir/src/mutex_multithreading.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/quat/Concurrency-Program/src/mutex_multithreading.cpp > CMakeFiles/my_executable.dir/src/mutex_multithreading.cpp.i
+
+CMakeFiles/my_executable.dir/src/mutex_multithreading.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/my_executable.dir/src/mutex_multithreading.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/quat/Concurrency-Program/src/mutex_multithreading.cpp -o CMakeFiles/my_executable.dir/src/mutex_multithreading.cpp.s
+
+CMakeFiles/my_executable.dir/src/multithreading.cpp.o: CMakeFiles/my_executable.dir/flags.make
+CMakeFiles/my_executable.dir/src/multithreading.cpp.o: ../src/multithreading.cpp
+CMakeFiles/my_executable.dir/src/multithreading.cpp.o: CMakeFiles/my_executable.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/quat/Concurrency-Program/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/my_executable.dir/src/multithreading.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/my_executable.dir/src/multithreading.cpp.o -MF CMakeFiles/my_executable.dir/src/multithreading.cpp.o.d -o CMakeFiles/my_executable.dir/src/multithreading.cpp.o -c /home/quat/Concurrency-Program/src/multithreading.cpp
+
+CMakeFiles/my_executable.dir/src/multithreading.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/my_executable.dir/src/multithreading.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/quat/Concurrency-Program/src/multithreading.cpp > CMakeFiles/my_executable.dir/src/multithreading.cpp.i
+
+CMakeFiles/my_executable.dir/src/multithreading.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/my_executable.dir/src/multithreading.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/quat/Concurrency-Program/src/multithreading.cpp -o CMakeFiles/my_executable.dir/src/multithreading.cpp.s
 
 # Object files for target my_executable
 my_executable_OBJECTS = \
 "CMakeFiles/my_executable.dir/src/main.cpp.o" \
-"CMakeFiles/my_executable.dir/src/fork.cpp.o"
+"CMakeFiles/my_executable.dir/src/fork.cpp.o" \
+"CMakeFiles/my_executable.dir/src/named-pipe.cpp.o" \
+"CMakeFiles/my_executable.dir/src/mutex_multithreading.cpp.o" \
+"CMakeFiles/my_executable.dir/src/multithreading.cpp.o"
 
 # External object files for target my_executable
 my_executable_EXTERNAL_OBJECTS =
 
 bin/my_executable: CMakeFiles/my_executable.dir/src/main.cpp.o
 bin/my_executable: CMakeFiles/my_executable.dir/src/fork.cpp.o
+bin/my_executable: CMakeFiles/my_executable.dir/src/named-pipe.cpp.o
+bin/my_executable: CMakeFiles/my_executable.dir/src/mutex_multithreading.cpp.o
+bin/my_executable: CMakeFiles/my_executable.dir/src/multithreading.cpp.o
 bin/my_executable: CMakeFiles/my_executable.dir/build.make
 bin/my_executable: CMakeFiles/my_executable.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/quat/concurrency/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable bin/my_executable"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/quat/Concurrency-Program/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable bin/my_executable"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/my_executable.dir/link.txt --verbose=$(VERBOSE)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Running my_executable"
 	build/bin/my_executable
-	/usr/bin/cmake -E remove /home/quat/concurrency/build/build/bin/my_executable
+	/usr/bin/cmake -E remove /home/quat/Concurrency-Program/build/build/bin/my_executable
 
 # Rule to build all files generated by this target.
 CMakeFiles/my_executable.dir/build: bin/my_executable
@@ -124,6 +172,6 @@ CMakeFiles/my_executable.dir/clean:
 .PHONY : CMakeFiles/my_executable.dir/clean
 
 CMakeFiles/my_executable.dir/depend:
-	cd /home/quat/concurrency/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/quat/concurrency /home/quat/concurrency /home/quat/concurrency/build /home/quat/concurrency/build /home/quat/concurrency/build/CMakeFiles/my_executable.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/quat/Concurrency-Program/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/quat/Concurrency-Program /home/quat/Concurrency-Program /home/quat/Concurrency-Program/build /home/quat/Concurrency-Program/build /home/quat/Concurrency-Program/build/CMakeFiles/my_executable.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/my_executable.dir/depend
 

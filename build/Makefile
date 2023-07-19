@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/quat/concurrency
+CMAKE_SOURCE_DIR = /home/quat/Concurrency-Program
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/quat/concurrency/build
+CMAKE_BINARY_DIR = /home/quat/Concurrency-Program/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/quat/concurrency/build/CMakeFiles /home/quat/concurrency/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/quat/Concurrency-Program/build/CMakeFiles /home/quat/Concurrency-Program/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/quat/concurrency/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/quat/Concurrency-Program/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -177,6 +177,78 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_executable.dir/build.make CMakeFiles/my_executable.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/multithreading.o: src/multithreading.cpp.o
+.PHONY : src/multithreading.o
+
+# target to build an object file
+src/multithreading.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_executable.dir/build.make CMakeFiles/my_executable.dir/src/multithreading.cpp.o
+.PHONY : src/multithreading.cpp.o
+
+src/multithreading.i: src/multithreading.cpp.i
+.PHONY : src/multithreading.i
+
+# target to preprocess a source file
+src/multithreading.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_executable.dir/build.make CMakeFiles/my_executable.dir/src/multithreading.cpp.i
+.PHONY : src/multithreading.cpp.i
+
+src/multithreading.s: src/multithreading.cpp.s
+.PHONY : src/multithreading.s
+
+# target to generate assembly for a file
+src/multithreading.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_executable.dir/build.make CMakeFiles/my_executable.dir/src/multithreading.cpp.s
+.PHONY : src/multithreading.cpp.s
+
+src/mutex_multithreading.o: src/mutex_multithreading.cpp.o
+.PHONY : src/mutex_multithreading.o
+
+# target to build an object file
+src/mutex_multithreading.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_executable.dir/build.make CMakeFiles/my_executable.dir/src/mutex_multithreading.cpp.o
+.PHONY : src/mutex_multithreading.cpp.o
+
+src/mutex_multithreading.i: src/mutex_multithreading.cpp.i
+.PHONY : src/mutex_multithreading.i
+
+# target to preprocess a source file
+src/mutex_multithreading.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_executable.dir/build.make CMakeFiles/my_executable.dir/src/mutex_multithreading.cpp.i
+.PHONY : src/mutex_multithreading.cpp.i
+
+src/mutex_multithreading.s: src/mutex_multithreading.cpp.s
+.PHONY : src/mutex_multithreading.s
+
+# target to generate assembly for a file
+src/mutex_multithreading.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_executable.dir/build.make CMakeFiles/my_executable.dir/src/mutex_multithreading.cpp.s
+.PHONY : src/mutex_multithreading.cpp.s
+
+src/named-pipe.o: src/named-pipe.cpp.o
+.PHONY : src/named-pipe.o
+
+# target to build an object file
+src/named-pipe.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_executable.dir/build.make CMakeFiles/my_executable.dir/src/named-pipe.cpp.o
+.PHONY : src/named-pipe.cpp.o
+
+src/named-pipe.i: src/named-pipe.cpp.i
+.PHONY : src/named-pipe.i
+
+# target to preprocess a source file
+src/named-pipe.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_executable.dir/build.make CMakeFiles/my_executable.dir/src/named-pipe.cpp.i
+.PHONY : src/named-pipe.cpp.i
+
+src/named-pipe.s: src/named-pipe.cpp.s
+.PHONY : src/named-pipe.s
+
+# target to generate assembly for a file
+src/named-pipe.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_executable.dir/build.make CMakeFiles/my_executable.dir/src/named-pipe.cpp.s
+.PHONY : src/named-pipe.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -192,6 +264,15 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/multithreading.o"
+	@echo "... src/multithreading.i"
+	@echo "... src/multithreading.s"
+	@echo "... src/mutex_multithreading.o"
+	@echo "... src/mutex_multithreading.i"
+	@echo "... src/mutex_multithreading.s"
+	@echo "... src/named-pipe.o"
+	@echo "... src/named-pipe.i"
+	@echo "... src/named-pipe.s"
 .PHONY : help
 
 

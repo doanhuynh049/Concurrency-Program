@@ -69,7 +69,6 @@ void
 childProcess(int id, int* data)
 {
 }
-
 void
 implementFork1()
 {
@@ -151,5 +150,43 @@ implementShareMemory()
                   << std::endl;
         munmap(shared_data, SHM_SIZE);
         shm_unlink("/my_shm");
+    }
+}
+
+static int globalvar = 0;
+
+void
+implementFork12()
+{
+    int data_size = 3;
+    // child processes
+    for (int i = 1; i < data_size; i++)
+    {
+        pid_t c_pid = fork();
+        if (c_pid == -1)
+        {
+            std::cerr << "Failed to fork process." << std::endl;
+            exit(EXIT_FAILURE);
+        }
+        else if (c_pid == 0)
+        {
+            globalvar += 5;
+            std::cout << "Process child data " << i
+                      << ": Address: " << &globalvar << " Value: " << globalvar
+                      << std::endl;
+            ;
+            exit(EXIT_SUCCESS);
+        }
+        else
+        {
+            // Wait for child processes to terminate
+            wait(NULL);
+            std::cout << "Parent process data: ";
+
+            globalvar += 15;
+            std::cout << "Address: " << &globalvar << " Value: " << globalvar
+                      << std::endl;
+            ;
+        }
     }
 }

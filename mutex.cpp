@@ -1,11 +1,13 @@
 #include <iostream>
-#include <thread>
 #include <mutex>
+#include <thread>
 
 std::mutex mtx;
 int shared_var = 0;
 
-void task(int id) {
+void
+task(int id)
+{
     std::cout << "Task " << id << " started" << std::endl;
 
     // Acquire the lock
@@ -20,7 +22,9 @@ void task(int id) {
     std::cout << "Task " << id << " completed" << std::endl;
 }
 
-int main() {
+int
+main()
+{
     std::cout << "Main thread started" << std::endl;
 
     // Create some tasks
@@ -36,4 +40,3 @@ int main() {
 
     return 0;
 }
-

@@ -54,10 +54,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/quat/concurrency
+CMAKE_SOURCE_DIR = /home/quat/Concurrency-Program
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/quat/concurrency/build
+CMAKE_BINARY_DIR = /home/quat/Concurrency-Program/build
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -81,14 +81,14 @@ clean: CMakeFiles/my_executable.dir/clean
 CMakeFiles/my_executable.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_executable.dir/build.make CMakeFiles/my_executable.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_executable.dir/build.make CMakeFiles/my_executable.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/quat/concurrency/build/CMakeFiles --progress-num=1,2,3 "Built target my_executable"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/quat/Concurrency-Program/build/CMakeFiles --progress-num=1,2,3,4,5,6 "Built target my_executable"
 .PHONY : CMakeFiles/my_executable.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/my_executable.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/quat/concurrency/build/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/quat/Concurrency-Program/build/CMakeFiles 6
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/my_executable.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/quat/concurrency/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/quat/Concurrency-Program/build/CMakeFiles 0
 .PHONY : CMakeFiles/my_executable.dir/rule
 
 # Convenience name for target.
