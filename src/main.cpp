@@ -1,10 +1,11 @@
 #include <unistd.h>
 #include <iostream>
 
-#include "../include/fork.h"
-#include "../include/multithreading.h"
-#include "../include/mutex_multithreading.h"
-#include "../include/named-pipe.h"
+#include "../include/session1/condition_var.h"
+#include "../include/session1/fork.h"
+#include "../include/session1/multithreading.h"
+#include "../include/session1/mutex_multithreading.h"
+#include "../include/session1/named-pipe.h"
 
 int
 main()
@@ -15,10 +16,12 @@ main()
     // implementShareMemory();
     // NamedPipe* namedpipe = new NamedPipe();
     // namedpipe->implementPipe();
-    MultiThreading* multithreading = new MultiThreading();
-    multithreading->executeMultiThreading();
+    // MultiThreading* multithreading = new MultiThreading();
+    // multithreading->executeMultiThreading();
     // implementFork12();
-    // MuTex* mutex = new MuTex();
-    // mutex->executeMutex();
+    MuTex* mutex = new MuTex();
+    mutex->executeMutex();
+    // ConditionVar conditionvar;
+    // conditionvar.executeConditionVar();
     return 0;
 }

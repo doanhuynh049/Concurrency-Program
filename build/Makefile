@@ -129,30 +129,6 @@ my_executable/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_executable.dir/build.make CMakeFiles/my_executable.dir/build
 .PHONY : my_executable/fast
 
-src/fork.o: src/fork.cpp.o
-.PHONY : src/fork.o
-
-# target to build an object file
-src/fork.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_executable.dir/build.make CMakeFiles/my_executable.dir/src/fork.cpp.o
-.PHONY : src/fork.cpp.o
-
-src/fork.i: src/fork.cpp.i
-.PHONY : src/fork.i
-
-# target to preprocess a source file
-src/fork.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_executable.dir/build.make CMakeFiles/my_executable.dir/src/fork.cpp.i
-.PHONY : src/fork.cpp.i
-
-src/fork.s: src/fork.cpp.s
-.PHONY : src/fork.s
-
-# target to generate assembly for a file
-src/fork.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_executable.dir/build.make CMakeFiles/my_executable.dir/src/fork.cpp.s
-.PHONY : src/fork.cpp.s
-
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
 
@@ -177,77 +153,125 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_executable.dir/build.make CMakeFiles/my_executable.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
-src/multithreading.o: src/multithreading.cpp.o
-.PHONY : src/multithreading.o
+src/session1/condition_var.o: src/session1/condition_var.cpp.o
+.PHONY : src/session1/condition_var.o
 
 # target to build an object file
-src/multithreading.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_executable.dir/build.make CMakeFiles/my_executable.dir/src/multithreading.cpp.o
-.PHONY : src/multithreading.cpp.o
+src/session1/condition_var.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_executable.dir/build.make CMakeFiles/my_executable.dir/src/session1/condition_var.cpp.o
+.PHONY : src/session1/condition_var.cpp.o
 
-src/multithreading.i: src/multithreading.cpp.i
-.PHONY : src/multithreading.i
+src/session1/condition_var.i: src/session1/condition_var.cpp.i
+.PHONY : src/session1/condition_var.i
 
 # target to preprocess a source file
-src/multithreading.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_executable.dir/build.make CMakeFiles/my_executable.dir/src/multithreading.cpp.i
-.PHONY : src/multithreading.cpp.i
+src/session1/condition_var.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_executable.dir/build.make CMakeFiles/my_executable.dir/src/session1/condition_var.cpp.i
+.PHONY : src/session1/condition_var.cpp.i
 
-src/multithreading.s: src/multithreading.cpp.s
-.PHONY : src/multithreading.s
+src/session1/condition_var.s: src/session1/condition_var.cpp.s
+.PHONY : src/session1/condition_var.s
 
 # target to generate assembly for a file
-src/multithreading.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_executable.dir/build.make CMakeFiles/my_executable.dir/src/multithreading.cpp.s
-.PHONY : src/multithreading.cpp.s
+src/session1/condition_var.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_executable.dir/build.make CMakeFiles/my_executable.dir/src/session1/condition_var.cpp.s
+.PHONY : src/session1/condition_var.cpp.s
 
-src/mutex_multithreading.o: src/mutex_multithreading.cpp.o
-.PHONY : src/mutex_multithreading.o
+src/session1/fork.o: src/session1/fork.cpp.o
+.PHONY : src/session1/fork.o
 
 # target to build an object file
-src/mutex_multithreading.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_executable.dir/build.make CMakeFiles/my_executable.dir/src/mutex_multithreading.cpp.o
-.PHONY : src/mutex_multithreading.cpp.o
+src/session1/fork.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_executable.dir/build.make CMakeFiles/my_executable.dir/src/session1/fork.cpp.o
+.PHONY : src/session1/fork.cpp.o
 
-src/mutex_multithreading.i: src/mutex_multithreading.cpp.i
-.PHONY : src/mutex_multithreading.i
+src/session1/fork.i: src/session1/fork.cpp.i
+.PHONY : src/session1/fork.i
 
 # target to preprocess a source file
-src/mutex_multithreading.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_executable.dir/build.make CMakeFiles/my_executable.dir/src/mutex_multithreading.cpp.i
-.PHONY : src/mutex_multithreading.cpp.i
+src/session1/fork.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_executable.dir/build.make CMakeFiles/my_executable.dir/src/session1/fork.cpp.i
+.PHONY : src/session1/fork.cpp.i
 
-src/mutex_multithreading.s: src/mutex_multithreading.cpp.s
-.PHONY : src/mutex_multithreading.s
+src/session1/fork.s: src/session1/fork.cpp.s
+.PHONY : src/session1/fork.s
 
 # target to generate assembly for a file
-src/mutex_multithreading.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_executable.dir/build.make CMakeFiles/my_executable.dir/src/mutex_multithreading.cpp.s
-.PHONY : src/mutex_multithreading.cpp.s
+src/session1/fork.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_executable.dir/build.make CMakeFiles/my_executable.dir/src/session1/fork.cpp.s
+.PHONY : src/session1/fork.cpp.s
 
-src/named-pipe.o: src/named-pipe.cpp.o
-.PHONY : src/named-pipe.o
+src/session1/multithreading.o: src/session1/multithreading.cpp.o
+.PHONY : src/session1/multithreading.o
 
 # target to build an object file
-src/named-pipe.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_executable.dir/build.make CMakeFiles/my_executable.dir/src/named-pipe.cpp.o
-.PHONY : src/named-pipe.cpp.o
+src/session1/multithreading.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_executable.dir/build.make CMakeFiles/my_executable.dir/src/session1/multithreading.cpp.o
+.PHONY : src/session1/multithreading.cpp.o
 
-src/named-pipe.i: src/named-pipe.cpp.i
-.PHONY : src/named-pipe.i
+src/session1/multithreading.i: src/session1/multithreading.cpp.i
+.PHONY : src/session1/multithreading.i
 
 # target to preprocess a source file
-src/named-pipe.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_executable.dir/build.make CMakeFiles/my_executable.dir/src/named-pipe.cpp.i
-.PHONY : src/named-pipe.cpp.i
+src/session1/multithreading.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_executable.dir/build.make CMakeFiles/my_executable.dir/src/session1/multithreading.cpp.i
+.PHONY : src/session1/multithreading.cpp.i
 
-src/named-pipe.s: src/named-pipe.cpp.s
-.PHONY : src/named-pipe.s
+src/session1/multithreading.s: src/session1/multithreading.cpp.s
+.PHONY : src/session1/multithreading.s
 
 # target to generate assembly for a file
-src/named-pipe.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_executable.dir/build.make CMakeFiles/my_executable.dir/src/named-pipe.cpp.s
-.PHONY : src/named-pipe.cpp.s
+src/session1/multithreading.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_executable.dir/build.make CMakeFiles/my_executable.dir/src/session1/multithreading.cpp.s
+.PHONY : src/session1/multithreading.cpp.s
+
+src/session1/mutex_multithreading.o: src/session1/mutex_multithreading.cpp.o
+.PHONY : src/session1/mutex_multithreading.o
+
+# target to build an object file
+src/session1/mutex_multithreading.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_executable.dir/build.make CMakeFiles/my_executable.dir/src/session1/mutex_multithreading.cpp.o
+.PHONY : src/session1/mutex_multithreading.cpp.o
+
+src/session1/mutex_multithreading.i: src/session1/mutex_multithreading.cpp.i
+.PHONY : src/session1/mutex_multithreading.i
+
+# target to preprocess a source file
+src/session1/mutex_multithreading.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_executable.dir/build.make CMakeFiles/my_executable.dir/src/session1/mutex_multithreading.cpp.i
+.PHONY : src/session1/mutex_multithreading.cpp.i
+
+src/session1/mutex_multithreading.s: src/session1/mutex_multithreading.cpp.s
+.PHONY : src/session1/mutex_multithreading.s
+
+# target to generate assembly for a file
+src/session1/mutex_multithreading.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_executable.dir/build.make CMakeFiles/my_executable.dir/src/session1/mutex_multithreading.cpp.s
+.PHONY : src/session1/mutex_multithreading.cpp.s
+
+src/session1/named-pipe.o: src/session1/named-pipe.cpp.o
+.PHONY : src/session1/named-pipe.o
+
+# target to build an object file
+src/session1/named-pipe.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_executable.dir/build.make CMakeFiles/my_executable.dir/src/session1/named-pipe.cpp.o
+.PHONY : src/session1/named-pipe.cpp.o
+
+src/session1/named-pipe.i: src/session1/named-pipe.cpp.i
+.PHONY : src/session1/named-pipe.i
+
+# target to preprocess a source file
+src/session1/named-pipe.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_executable.dir/build.make CMakeFiles/my_executable.dir/src/session1/named-pipe.cpp.i
+.PHONY : src/session1/named-pipe.cpp.i
+
+src/session1/named-pipe.s: src/session1/named-pipe.cpp.s
+.PHONY : src/session1/named-pipe.s
+
+# target to generate assembly for a file
+src/session1/named-pipe.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_executable.dir/build.make CMakeFiles/my_executable.dir/src/session1/named-pipe.cpp.s
+.PHONY : src/session1/named-pipe.cpp.s
 
 # Help Target
 help:
@@ -258,21 +282,24 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... my_executable"
-	@echo "... src/fork.o"
-	@echo "... src/fork.i"
-	@echo "... src/fork.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
-	@echo "... src/multithreading.o"
-	@echo "... src/multithreading.i"
-	@echo "... src/multithreading.s"
-	@echo "... src/mutex_multithreading.o"
-	@echo "... src/mutex_multithreading.i"
-	@echo "... src/mutex_multithreading.s"
-	@echo "... src/named-pipe.o"
-	@echo "... src/named-pipe.i"
-	@echo "... src/named-pipe.s"
+	@echo "... src/session1/condition_var.o"
+	@echo "... src/session1/condition_var.i"
+	@echo "... src/session1/condition_var.s"
+	@echo "... src/session1/fork.o"
+	@echo "... src/session1/fork.i"
+	@echo "... src/session1/fork.s"
+	@echo "... src/session1/multithreading.o"
+	@echo "... src/session1/multithreading.i"
+	@echo "... src/session1/multithreading.s"
+	@echo "... src/session1/mutex_multithreading.o"
+	@echo "... src/session1/mutex_multithreading.i"
+	@echo "... src/session1/mutex_multithreading.s"
+	@echo "... src/session1/named-pipe.o"
+	@echo "... src/session1/named-pipe.i"
+	@echo "... src/session1/named-pipe.s"
 .PHONY : help
 
 

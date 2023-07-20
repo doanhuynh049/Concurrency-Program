@@ -10,23 +10,25 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_executable(my_executable
     src/main.cpp
-    src/fork.cpp
-    src/named-pipe.cpp
-    src/mutex_multithreading.cpp
-    src/multithreading.cpp)
+    src/session1/fork.cpp
+    src/session1/named-pipe.cpp
+    src/session1/condition_var.cpp
+    src/session1/mutex_multithreading.cpp
+    src/session1/multithreading.cpp)
 target_include_directories(my_executable PRIVATE ${CMAKE_CUTTENT_SOURCE_DIR}/include)
 
 target_sources(my_executable PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/fork.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/multithreading.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/mutex_multithreading.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/named-pipe.h)
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/session1/fork.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/session1/multithreading.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/session1/mutex_multithreading.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/session1/named-pipe.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/session1/condition_var.h)
 
 set_target_properties(my_executable PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/build/bin)
 
 # add custom commadn to run the executable after building it
 add_custom_command(TARGET my_executable POST_BUILD
     COMMENT "Running my_executable"
-    COMMAND ${CMAKE_CURRENT_BINARY_DIR}/build/bin/my_executable
-    COMMAND ${CMAKE_COMMAND} -E remove ${CMAKE_CURRENT_BINARY_DIR}/build/bin/my_executable
+    COMMAND ${PROJECT_SOURCE_DIR}/build/bin/my_executable
+    COMMAND ${CMAKE_COMMAND} -E remove ${PROJECT_SOURCE_DIR}/build/bin/my_executable
 )

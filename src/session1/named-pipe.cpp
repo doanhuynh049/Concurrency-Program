@@ -1,4 +1,4 @@
-#include "../include/named-pipe.h"
+#include "../../include/session1/named-pipe.h"
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <sys/types.h>
