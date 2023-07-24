@@ -18,13 +18,15 @@
 
 #define PORT 8080
 #define BUFFER_SIZE 4096
-
+const char* SHM_NAME = "/my_shm";
 struct Email
 {
     std::vector<std::string> sender;
     std::vector<std::string> receiver;
     std::vector<std::string> content;
 };
+const int SHM_SIZE = sizeof(Email);
+
 Email
 read_email_file(std::string filename)
 {
@@ -195,7 +197,6 @@ child_process_fork(Email* shared_data)
         if (shared_data->sender.size() > 0)
         {
             process_email_archive(shared_data);
-            shared_data->erase(shared_data->begin());
         }
 
         close(client_fd);
@@ -215,8 +216,7 @@ parent_process()
 
     // initialize shared memory
     // int* shared_data;  // pointer to shared memory
-    const char* SHM_NAME = "/my_shm";
-    const int SHM_SIZE = sizeof(int);
+
     int shm_fd = shm_open(SHM_NAME, O_CREAT | O_RDWR, 0666);
     if (shm_fd == -1)
     {
@@ -227,9 +227,6 @@ parent_process()
     ftruncate(shm_fd, SHM_SIZE);
 
     Email* shared_data;
-
-    // std::vector<Email>* shared_data = (std::vector<Email>*)(mmap(
-    //     NULL, SHM_SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, shm_fd, 0));
     void* shared_mem =
         mmap(NULL, SHM_SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, shm_fd, 0);
     if (shared_mem == MAP_FAILED)
@@ -238,10 +235,20 @@ parent_process()
         exit(EXIT_FAILURE);
     }
 
+    shared_data = static_cast<Email*>(shared_mem);
     std::string filename = "../../email/email_file1.txt";
     Email email = read_email_file(filename);
-    shared_data = static_cast<Email*>(shared_mem);
+    std::memcpy(shared_data, &email, sizeof(email));
+    // for (int i = 1; i <= 1; i++)
+    // {
+    //     std::string filename =
+    //         "../../email/email_file" + std::to_string(i) + ".txt";
+    //     Email email = read_email_file(filename);
 
+    //     // Copy the email object to the shared memory region
+    //     std::memcpy(shared_data, &email, sizeof(email));
+    //     // std::memcpy(shared_data + i - 1, &email, sizeof(email));
+    // }
     // shared_data = static_cast<int*> ;
     pid_t pid_child = child_process_fork(shared_data);
     if (pid_child > 0)
@@ -306,8 +313,6 @@ parent_process()
         if (check_child_alive(pid_child, new_socket))
         {
             std::cout << "Parent process got repsonse\n";
-            // shared_data->push_back(email);
-            std::memcpy(shared_mem, &email, sizeof(Email));
         }
         // std::cout << "From: " << shared_data->sender.size() << std::endl;
         // std::cout << "Size of shared memory: " << shared_data->size()
