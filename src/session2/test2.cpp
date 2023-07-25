@@ -6,6 +6,7 @@
 #include <unistd.h>
 
 #include <sys/mman.h>  //used to map the shared memory object
+#include <sys/shm.h>
 #include <sys/socket.h>
 #include <sys/stat.h>
 #include <unistd.h>
@@ -18,71 +19,188 @@
 
 #define PORT 8080
 #define BUFFER_SIZE 4096
+int server_fd, new_socket, valread;
+struct sockaddr_in address;
+struct sockaddr_in server_addr;
+int opt = 1;
+int addrlen = sizeof(address);
+#define EMAILS_CAPACITY 5
+// #define SHM_SIZE 1024 * 1024
+int* shared_data;
+const size_t shm_size = 500;
+
+// Create shared memory
+int shm_id = shmget(IPC_PRIVATE, shm_size, 0666);
+
+// Attach to shared memory
+char* shared_mem = (char*)shmat(shm_id, NULL, 0);
 const char* SHM_NAME = "/my_shm";
+
+std::string message;
+
 struct Email
 {
-    std::vector<std::string> sender;
-    std::vector<std::string> receiver;
-    std::vector<std::string> content;
+    std::string sender;
+    std::string receiver;
+    std::string content;
 };
+class EmailClass
+{
+public:
+    void
+    display_emails(std::vector<Email> emails)
+    {
+        for (auto email : emails)
+        {
+            std::cout << "From: " << email.sender << std::endl;
+            std::cout << "To: " << email.receiver << std::endl;
+            std::cout << "Content: " << std::endl;
+            std::cout << email.content << std::endl;
+            std::cout << std::endl;
+        }
+    }
+
+    Email
+    exstractMessage(int i)
+    {
+        std::string filename =
+            "../../email/email_file" + std::to_string(i) + ".txt";
+
+        std::ifstream file(filename);
+        std::string line;
+        Email email;
+        if (file.is_open())
+        {
+            getline(file, line);
+            email.sender = line.substr(line.find(":") + 2);
+            getline(file, line);
+            email.receiver = line.substr(line.find(":") + 2);
+            std::stringstream buffer;
+            buffer << file.rdbuf();
+            email.content = buffer.str();
+            file.close();
+        }
+        return email;
+    }
+
+    void
+    read_email_file(std::vector<Email>& emails)
+    {
+        for (int i = 1; i <= 5; i++)
+        {
+            std::string filename =
+                "../../email/email_file" + std::to_string(i) + ".txt";
+
+            std::ifstream file(filename);
+            std::string line;
+            Email email;
+            if (file.is_open())
+            {
+                getline(file, line);
+                email.sender = line.substr(line.find(":") + 2);
+                getline(file, line);
+                email.receiver = line.substr(line.find(":") + 2);
+                std::stringstream buffer;
+                buffer << file.rdbuf();
+                email.content = buffer.str();
+                file.close();
+            }
+            emails.push_back(email);
+            file.close();
+        }
+        // display_emails(emails);
+    }
+    void
+    readContent(int i)
+    {
+        message = "";
+        std::string filename =
+            "../../email/email_file" + std::to_string(i) + ".txt";
+        std::ifstream file(filename);
+        if (file.is_open())
+        {
+            std::string line;
+            while (getline(file, line))
+            {
+                // std::cout << line << std::endl;
+                message += line + "\n";
+            }
+            file.close();
+        }
+        else
+        {
+            std::cerr << "Failed to open file" << std::endl;
+            exit(EXIT_FAILURE);
+        }
+    }
+
+    void
+    process_email_archive(int i)
+    {
+        std::cout << message;
+        Email email = exstractMessage(i);
+        const std::string filename = "../../email/email_archive.csv";
+        std::ifstream file(filename);
+        if (!file.good())
+        {
+            std::ofstream newfile(filename);
+            newfile << "From;To;Content\n";
+            newfile.close();
+        }
+        else
+        {
+            std::string line;
+            std::getline(file, line);
+            if (line != "From;To;Content")
+            {
+                std::stringstream ss;
+                ss << "From;To;Content" << line << "\n";
+                file.close();
+                std::ofstream newfile1(filename);
+                newfile1 << ss.str();
+                newfile1.close();
+            }
+            else
+            {
+                file.close();
+            }
+        }
+        std::ofstream file_open(filename, std::ofstream::app);
+        if (file_open.is_open())
+        {
+            file_open << email.sender << ";" << email.receiver << ";"
+                      << email.content << std::endl;
+            file_open.close();
+        }
+    }
+};
+
+Email* email_ptr;
 const int SHM_SIZE = sizeof(Email);
 
-Email
-read_email_file(std::string filename)
-{
-    std::ifstream file(filename);
-    std::string line;
-    Email email;
-    if (file.is_open())
-    {
-        getline(file, line);
-        email.sender.push_back(line.substr(line.find(":") + 2));
-        // std::cout << email.sender[0] << std::endl;
-        getline(file, line);
-        email.receiver.push_back(line.substr(line.find(":") + 2));
-        // // std::cout << email.receiver[0] << std::endl;
-        std::stringstream buffer;
-        buffer << file.rdbuf();
-        email.content.push_back(buffer.str());
-        file.close();
-    }
-    return email;
-}
-Email
-read_email_csv(std::string filename)
-{
-    Email emails;
-    std::ifstream file(filename);
-    std::string line;
-    // int i = std::cout << std::getline(file, line) << std::endl;
-    getline(file, line);
-    while (getline(file, line))
-    {
-        std::stringstream ss(line);
-        std::string sender, receiver, content;
-        getline(ss, sender, ';');
-        getline(ss, receiver, ';');
-        getline(ss, content, ';');
-        emails.sender.push_back(sender);
-        emails.receiver.push_back(receiver);
-        emails.content.push_back(content);
-    }
+// Email
+// read_email_csv(std::string filename)
+// {
+//     Email emails;
+//     std::ifstream file(filename);
+//     std::string line;
+//     // int i = std::cout << std::getline(file, line) << std::endl;
+//     getline(file, line);
+//     while (getline(file, line))
+//     {
+//         std::stringstream ss(line);
+//         std::string sender, receiver, content;
+//         getline(ss, sender, ';');
+//         getline(ss, receiver, ';');
+//         getline(ss, content, ';');
+//         emails.sender.push_back(sender);
+//         emails.receiver.push_back(receiver);
+//         emails.content.push_back(content);
+//     }
 
-    return emails;
-}
-Email
-print_email_csv(Email emails)
-{
-    // Print the emails
-    for (int i = 0; i < emails.sender.size() - 1; i++)
-    {
-        std::cout << "From: " << emails.sender[i] << std::endl;
-        std::cout << "To: " << emails.receiver[i] << std::endl;
-        std::cout << "Content: " << emails.content[i] << std::endl;
-        std::cout << std::endl;
-    }
-    return emails;
-}
+//     return emails;
+// }
+
 bool
 check_child_alive(pid_t child_pid, int socket_fd)
 {
@@ -102,58 +220,15 @@ check_child_alive(pid_t child_pid, int socket_fd)
         return false;
 }
 
-void
-process_email_archive(Email* shared_data)
-{
-    std::cout << "\nRead shared memory: \n";
-    std::cout << "From: " << shared_data->sender[0] << std::endl;
-    std::cout << "To: " << shared_data->receiver[0] << std::endl;
-    std::cout << "Content: " << shared_data->content[0] << std::endl;
-    std::cout << std::endl;
-
-    const std::string filename = "../../email/email_archive.csv";
-    std::ifstream file(filename);
-    if (!file.good())
-    {
-        std::ofstream newfile(filename);
-        newfile << "From;To;Content\n";
-        newfile.close();
-    }
-    else
-    {
-        std::string line;
-        std::getline(file, line);
-        if (line != "From;To;Content")
-        {
-            std::stringstream ss;
-            ss << "From;To;Content" << line << "\n";
-            file.close();
-            std::ofstream newfile1(filename);
-            newfile1 << ss.str();
-            newfile1.close();
-        }
-        else
-        {
-            file.close();
-        }
-    }
-    std::ofstream file_open(filename, std::ofstream::app);
-    if (file_open.is_open())
-    {
-        file_open << shared_data->sender[0] << ";" << shared_data->receiver[0]
-                  << ";" << shared_data->content[0] << std::endl;
-        file_open.close();
-    }
-}
 int
-child_process_fork(Email* shared_data)
+child_process_fork()
 {
     pid_t pid_child = fork();
     if (pid_child == 0)
     {
         std::cout << "Child process fork\n";
         int status, valread, client_fd;
-        struct sockaddr_in server_addr;
+
         const char* message = "Hello from client";
         char buffer[BUFFER_SIZE] = { 0 };
         if ((client_fd = socket(AF_INET, SOCK_STREAM, 0)) < 0)
@@ -176,150 +251,154 @@ child_process_fork(Email* shared_data)
             exit(EXIT_FAILURE);
         }
         send(client_fd, message, strlen(message), 0);
-        std::cout << "Hello message sent\n";
-        // Receive message from server
+        std::cout << "Child process: Hello message sent\n";
+        // 1. wait for (“is_alive”) message response (“alive”) immediately
         valread = read(client_fd, buffer, BUFFER_SIZE);
-        // std::endl;
         if (valread > 0)
         {
             buffer[valread] = '\0';
             std::string message(buffer);
             if (message == "is_alive")
             {
-                std::cout << "Child process received message: " << buffer
+                std::cout << "Child process: received message: " << buffer
                           << std::endl;
-
                 std::string response = "alive";
                 send(client_fd, response.c_str(), response.length(), 0);
+                // std::cout << *shared_data << std::endl;
             }
         }
-        sleep(1);
-        if (shared_data->sender.size() > 0)
+        EmailClass emailclass;
+        while (1)
         {
-            process_email_archive(shared_data);
-        }
+            // 2. detect shared memory is having data and read it
+            if (strlen(shared_mem) > 0)
+            {
+                std::cout
+                    << "Child process: detect shared memory having data\n";
 
+                std::cout << shared_mem << std::endl;
+                emailclass.process_email_archive(1);
+                strcpy(shared_mem, "");
+                break;
+            }
+        }
         close(client_fd);
     }
     return pid_child;
 }
 
 void
-parent_process()
+setupShareMemory()
 {
-    int server_fd, new_socket, valread;
-    struct sockaddr_in address;
-    int opt = 1;
-    int addrlen = sizeof(address);
-    char buffer[BUFFER_SIZE] = { 0 };
-    const char* message = "Hello from server";
-
-    // initialize shared memory
-    // int* shared_data;  // pointer to shared memory
-
     int shm_fd = shm_open(SHM_NAME, O_CREAT | O_RDWR, 0666);
     if (shm_fd == -1)
     {
-        perror("shm open");
+        perror("shm_open");
         exit(EXIT_FAILURE);
     }
-
+    // size_t email_size = sizeof(Email);
+    // ftruncate(shm_fd, SHM_SIZE);
+    // shared_data = static_cast<int*>(
+    //     mmap(NULL, SHM_SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, shm_fd, 0));
+    // size_t email_size = sizeof(Email);
     ftruncate(shm_fd, SHM_SIZE);
-
-    Email* shared_data;
-    void* shared_mem =
-        mmap(NULL, SHM_SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, shm_fd, 0);
-    if (shared_mem == MAP_FAILED)
+    email_ptr = static_cast<Email*>(
+        mmap(NULL, SHM_SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, shm_fd, 0));
+    close(shm_fd);
+    if (shared_data == MAP_FAILED)
     {
         perror("mmap");
         exit(EXIT_FAILURE);
     }
+    if (email_ptr == MAP_FAILED)
+    {
+        perror("mmap");
+        exit(EXIT_FAILURE);
+    }
+}
+void
+setupParentSocket()
+{
+    char buffer[BUFFER_SIZE] = { 0 };
+    const char* message = "Hello from server";
+    // Create socket
+    if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) < 0)
+    {
+        std::cerr << "Socket failed\n";
+        exit(EXIT_FAILURE);
+    }
+    // Set socket option
+    if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, &opt,
+                   sizeof(opt)))
+    {
+        std::cerr << "setsockopt\n";
+        exit(EXIT_FAILURE);
+    }
+    // Bind socket to address and port
+    address.sin_family = AF_INET;
+    address.sin_addr.s_addr = INADDR_ANY;
+    address.sin_port = htons(PORT);
 
-    shared_data = static_cast<Email*>(shared_mem);
-    std::string filename = "../../email/email_file1.txt";
-    Email email = read_email_file(filename);
-    std::memcpy(shared_data, &email, sizeof(email));
-    // for (int i = 1; i <= 1; i++)
+    if (bind(server_fd, (struct sockaddr*)&address, sizeof(address)) < 0)
+    {
+        std::cerr << "bind failure\n";
+        exit(EXIT_FAILURE);
+    }
+    // Listen for incoming connections
+    if (listen(server_fd, 3) < 0)
+    {
+        std::cerr << "listen\n";
+        exit(EXIT_FAILURE);
+    }
+    // Accept incoming connection
+    if ((new_socket = accept(server_fd, (struct sockaddr*)&address,
+                             (socklen_t*)&addrlen))
+        < 0)
+    {
+        std::cerr << "accept\n";
+        exit(EXIT_FAILURE);
+    }
+    // Receive message from client
+    if ((valread = read(new_socket, buffer, BUFFER_SIZE)) == -1)
+    {
+        perror("Read failed");
+        exit(EXIT_FAILURE);
+    }
+    std::cout << "Parent process: received message: " << buffer << std::endl;
+    // Send message to client
+    // if (send(new_socket, message, strlen(message), 0) == -1)
     // {
-    //     std::string filename =
-    //         "../../email/email_file" + std::to_string(i) + ".txt";
-    //     Email email = read_email_file(filename);
-
-    //     // Copy the email object to the shared memory region
-    //     std::memcpy(shared_data, &email, sizeof(email));
-    //     // std::memcpy(shared_data + i - 1, &email, sizeof(email));
+    //     perror("Send failed");
+    //     exit(EXIT_FAILURE);
     // }
-    // shared_data = static_cast<int*> ;
-    pid_t pid_child = child_process_fork(shared_data);
+    // std::cout << "Sent message: " << message << std::endl;
+}
+void
+parent_process()
+{
+    setupShareMemory();
+    EmailClass emailclass;
+    // Email email =
+    emailclass.readContent(1);  // 1.read 1 file
+    pid_t pid_child = child_process_fork();
     if (pid_child > 0)
     {
         std::cout << "Parent process fork\n";
 
-        // Create socket
-        if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) < 0)
-        {
-            std::cerr << "Socket failed\n";
-            exit(EXIT_FAILURE);
-        }
-        // Set socket option
-        if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, &opt,
-                       sizeof(opt)))
-        {
-            std::cerr << "setsockopt\n";
-            exit(EXIT_FAILURE);
-        }
-        // Bind socket to address and port
-        address.sin_family = AF_INET;
-        address.sin_addr.s_addr = INADDR_ANY;
-        address.sin_port = htons(PORT);
+        setupParentSocket();
 
-        if (bind(server_fd, (struct sockaddr*)&address, sizeof(address)) < 0)
-        {
-            std::cerr << "bind failure\n";
-            exit(EXIT_FAILURE);
-        }
-        // Listen for incoming connections
-        if (listen(server_fd, 3) < 0)
-        {
-            std::cerr << "listen\n";
-            exit(EXIT_FAILURE);
-        }
-        // Accept incoming connection
-        if ((new_socket = accept(server_fd, (struct sockaddr*)&address,
-                                 (socklen_t*)&addrlen))
-            < 0)
-        {
-            std::cerr << "accept\n";
-            exit(EXIT_FAILURE);
-        }
-        // Receive message from client
-        if ((valread = read(new_socket, buffer, BUFFER_SIZE)) == -1)
-        {
-            perror("Read failed");
-            exit(EXIT_FAILURE);
-        }
-        std::cout << "Parent process received message: " << buffer << std::endl;
-        // Send message to client
-        // if (send(new_socket, message, strlen(message), 0) == -1)
-        // {
-        //     perror("Send failed");
-        //     exit(EXIT_FAILURE);
-        // }
-        // std::cout << "Sent message: " << message << std::endl;
-
-        // std::string email_archive = "../../email/email.csv";
-        // Email email = read_email_csv(email_archive);
-        // print_email_csv(email);
+        // 2.check alive of process 2
         if (check_child_alive(pid_child, new_socket))
         {
-            std::cout << "Parent process got repsonse\n";
+            // 3. save data to shared memory
+            //
+            strcpy(shared_mem, message.c_str());
+            std::cout << "Parent process: got repsonse\n";
         }
-        // std::cout << "From: " << shared_data->sender.size() << std::endl;
-        // std::cout << "Size of shared memory: " << shared_data->size()
-        //           << std::endl;
-        // Close sockets
         waitpid(pid_child, NULL, 0);
-
+        // munmap(shared_data, SHM_SIZE);
+        munmap(email_ptr, SHM_SIZE);
+        shm_unlink("/my_shm");
         close(new_socket);
         close(server_fd);
     }
