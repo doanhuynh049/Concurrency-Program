@@ -195,7 +195,7 @@ child_process_fork(Email* shared_data)
         if (shared_data->sender.size() > 0)
         {
             process_email_archive(shared_data);
-            shared_data->erase(shared_data->begin());
+            // shared_data->erase(shared_data->begin());
         }
 
         close(client_fd);
@@ -237,12 +237,14 @@ parent_process()
         perror("mmap");
         exit(EXIT_FAILURE);
     }
-
-    std::string filename = "../../email/email_file1.txt";
-    Email email = read_email_file(filename);
     shared_data = static_cast<Email*>(shared_mem);
 
-    // shared_data = static_cast<int*> ;
+    // for (int i = 1; i <= 5; i++)
+    // {
+    std::string filename = "../../email/email_file1.txt";
+    Email email = read_email_file(filename);
+    // }
+
     pid_t pid_child = child_process_fork(shared_data);
     if (pid_child > 0)
     {
