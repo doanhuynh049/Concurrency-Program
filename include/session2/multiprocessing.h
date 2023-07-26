@@ -18,6 +18,7 @@
 #include <vector>
 #define PORT 8080
 #define BUFFER_SIZE 4096
+
 struct Email
 {
     std::string sender;
