@@ -26,7 +26,8 @@ int opt = 1;
 int addrlen = sizeof(address);
 #define EMAILS_CAPACITY 5
 // #define SHM_SIZE 1024 * 1024
-int* shared_data;
+// Email* email_ptr;
+
 const size_t shm_size = 500;
 
 // Create shared memory
@@ -34,7 +35,10 @@ int shm_id = shmget(IPC_PRIVATE, shm_size, 0666);
 
 // Attach to shared memory
 char* shared_mem = (char*)shmat(shm_id, NULL, 0);
+
 const char* SHM_NAME = "/my_shm";
+int* shared_data;
+const int SHM_SIZE = sizeof(int);
 
 std::string message;
 
@@ -137,7 +141,7 @@ public:
     void
     process_email_archive(int i)
     {
-        std::cout << message;
+        // std::cout << message;
         Email email = exstractMessage(i);
         const std::string filename = "../../email/email_archive.csv";
         std::ifstream file(filename);
@@ -174,9 +178,6 @@ public:
         }
     }
 };
-
-Email* email_ptr;
-const int SHM_SIZE = sizeof(Email);
 
 // Email
 // read_email_csv(std::string filename)
@@ -275,11 +276,11 @@ child_process_fork()
             {
                 std::cout
                     << "Child process: detect shared memory having data\n";
-
                 std::cout << shared_mem << std::endl;
-                emailclass.process_email_archive(1);
+                emailclass.process_email_archive(*shared_data);
                 strcpy(shared_mem, "");
-                break;
+                if (*shared_data >= 5)
+                    break;
             }
         }
         close(client_fd);
@@ -296,13 +297,8 @@ setupShareMemory()
         perror("shm_open");
         exit(EXIT_FAILURE);
     }
-    // size_t email_size = sizeof(Email);
-    // ftruncate(shm_fd, SHM_SIZE);
-    // shared_data = static_cast<int*>(
-    //     mmap(NULL, SHM_SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, shm_fd, 0));
-    // size_t email_size = sizeof(Email);
     ftruncate(shm_fd, SHM_SIZE);
-    email_ptr = static_cast<Email*>(
+    shared_data = static_cast<int*>(
         mmap(NULL, SHM_SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, shm_fd, 0));
     close(shm_fd);
     if (shared_data == MAP_FAILED)
@@ -310,11 +306,7 @@ setupShareMemory()
         perror("mmap");
         exit(EXIT_FAILURE);
     }
-    if (email_ptr == MAP_FAILED)
-    {
-        perror("mmap");
-        exit(EXIT_FAILURE);
-    }
+    *shared_data = 1;
 }
 void
 setupParentSocket()
@@ -378,6 +370,7 @@ parent_process()
 {
     setupShareMemory();
     EmailClass emailclass;
+
     // Email email =
     emailclass.readContent(1);  // 1.read 1 file
     pid_t pid_child = child_process_fork();
@@ -386,18 +379,25 @@ parent_process()
         std::cout << "Parent process fork\n";
 
         setupParentSocket();
-
         // 2.check alive of process 2
+
         if (check_child_alive(pid_child, new_socket))
         {
-            // 3. save data to shared memory
-            //
-            strcpy(shared_mem, message.c_str());
-            std::cout << "Parent process: got repsonse\n";
+            while (*shared_data <= 5)
+            {
+                // 3. save data to shared memory
+
+                // std::cout << "Parent process " << *shared_data << std::endl;
+                emailclass.readContent(*shared_data);
+                strcpy(shared_mem, message.c_str());
+                sleep(1);
+                // std::cout << "Parent process: got repsonse\n";
+                (*shared_data)++;
+            }
         }
         waitpid(pid_child, NULL, 0);
         // munmap(shared_data, SHM_SIZE);
-        munmap(email_ptr, SHM_SIZE);
+        // munmap(email_ptr, SHM_SIZE);
         shm_unlink("/my_shm");
         close(new_socket);
         close(server_fd);

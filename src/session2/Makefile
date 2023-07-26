@@ -7,6 +7,7 @@ CXXFLAGS = -Wall -Wextra -std=c++17
 EXEC = run
 
 all: $(EXEC)
+	./$(EXEC)
 
 $(EXEC): $(OBJ)
 	$(CXX) $(OBJ) -o $(EXEC) 

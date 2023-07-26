@@ -1,33 +1,33 @@
-#include <arpa/inet.h>
-#include <netinet/in.h>
-#include <sys/mman.h>
-#include <sys/socket.h>
-#include <sys/types.h>
-#include <unistd.h>
-#include <cstdlib>
-#include <cstring>
-#include <fstream>
-#include <iostream>
-#include <sstream>
-#include <string>
-#include <vector>
+#include "../../include/session2/multiprocessing.h"
 
-using namespace std;
+const char* SHM_NAME = "/my_shm";
 
-// Define struct to hold email data
-struct Email
-{
-    string sender;
-    string receiver;
-    string content;
-};
+const int SHM_SIZE = sizeof(int);
 
-// Define function to read email data from file
+char* shared_mem;
+int* shared_data;
+// std::string message;
+// void
+// EmailClass::display_emails(std::vector<Email> emails)
+// {
+//     for (auto email : emails)
+//     {
+//         std::cout << "From: " << email.sender << std::endl;
+//         std::cout << "To: " << email.receiver << std::endl;
+//         std::cout << "Content: " << std::endl;
+//         std::cout << email.content << std::endl;
+//         std::cout << std::endl;
+//     }
+// }
+
 Email
-read_email_file(string filename)
+EmailClass::exstractMessage()
 {
-    ifstream file(filename);
-    string line;
+    std::string filename =
+        "../../email/email_file" + std::to_string(*shared_data) + ".txt";
+
+    std::ifstream file(filename);
+    std::string line;
     Email email;
     if (file.is_open())
     {
@@ -35,7 +35,7 @@ read_email_file(string filename)
         email.sender = line.substr(line.find(":") + 2);
         getline(file, line);
         email.receiver = line.substr(line.find(":") + 2);
-        stringstream buffer;
+        std::stringstream buffer;
         buffer << file.rdbuf();
         email.content = buffer.str();
         file.close();
@@ -43,237 +43,362 @@ read_email_file(string filename)
     return email;
 }
 
-// Define function to check if child process is alive
-bool
-is_child_alive(pid_t child_pid, int socket_fd)
-{
-    // Send "is_alive" message to child process
-    string message = "is_alive";
-    send(socket_fd, message.c_str(), message.length(), 0);
+// void
+// EmailClass::read_email_file(std::vector<Email>& emails)
+// {
+//     for (int i = 1; i <= 5; i++)
+//     {
+//         std::string filename =
+//             "../../email/email_file" + std::to_string(i) + ".txt";
 
-    // Wait for response or timeout after 1 second
-    char response[1024];
-    int bytes_received =
-        recv(socket_fd, response, sizeof(response), MSG_DONTWAIT);
-    if (bytes_received > 0)
+//         std::ifstream file(filename);
+//         std::string line;
+//         Email email;
+//         if (file.is_open())
+//         {
+//             getline(file, line);
+//             email.sender = line.substr(line.find(":") + 2);
+//             getline(file, line);
+//             email.receiver = line.substr(line.find(":") + 2);
+//             std::stringstream buffer;
+//             buffer << file.rdbuf();
+//             email.content = buffer.str();
+//             file.close();
+//         }
+//         emails.push_back(email);
+//         file.close();
+//     }
+//     // display_emails(emails);
+// }
+void
+EmailClass::readContent(int i)
+{
+    message = "";
+    std::string filename =
+        "../../email/email_file" + std::to_string(i) + ".txt";
+    std::ifstream file(filename);
+    if (file.is_open())
     {
-        // Check if response is "alive"
-        response[bytes_received] = '\0';
-        return strcmp(response, "alive") == 0;
+        std::string line;
+        while (getline(file, line))
+        {
+            // std::cout << line << std::endl;
+            message += line + "\n";
+        }
+        file.close();
     }
     else
     {
-        // If no response, assume child process is dead
+        std::cerr << "Failed to open file" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+}
+
+void
+EmailClass::process_email_archive()
+{
+    // std::cout << message;
+    Email email = exstractMessage();
+    const std::string filename = "../../email/email_archive.csv";
+    std::ifstream file(filename);
+    if (!file.good())
+    {
+        std::ofstream newfile(filename);
+        newfile << "From;To;Content\n";
+        newfile.close();
+    }
+    else
+    {
+        std::string line;
+        std::getline(file, line);
+        if (line != "From;To;Content")
+        {
+            std::stringstream ss;
+            ss << "From;To;Content" << line << "\n";
+            file.close();
+            std::ofstream newfile1(filename);
+            newfile1 << ss.str();
+            newfile1.close();
+        }
+        else
+        {
+            file.close();
+        }
+    }
+    std::ofstream file_open(filename, std::ofstream::app);
+    if (file_open.is_open())
+    {
+        file_open << email.sender << ";" << email.receiver << ";"
+                  << email.content << std::endl;
+        file_open.close();
+    }
+}
+// Email
+// EmailClass::read_email_csv(std::string filename)
+// {
+//     Email emails;
+//     std::ifstream file(filename);
+//     std::string line;
+//     // int i = std::cout << std::getline(file, line) << std::endl;
+//     getline(file, line);
+//     while (getline(file, line))
+//     {
+//         std::stringstream ss(line);
+//         std::string sender, receiver, content;
+//         getline(ss, sender, ';');
+//         getline(ss, receiver, ';');
+//         getline(ss, content, ';');
+//         emails.sender.push_back(sender);
+//         emails.receiver.push_back(receiver);
+//         emails.content.push_back(content);
+//     }
+
+//     return emails;
+// }
+
+bool
+MultiProcessing::check_child_alive(int socket_fd)
+{
+    std::string message = "is_alive";
+    send(socket_fd, message.c_str(), message.length(), 0);
+    char response[BUFFER_SIZE];
+    int bytes_received = read(socket_fd, response, BUFFER_SIZE);
+    std::cout << "Parrent process received response: " << response << std::endl;
+    if (bytes_received > 0)
+    {
+        response[bytes_received] = '\0';
+        return std::string(response) == "alive";
+    }
+    else
+    {
         return false;
     }
 }
 
-// Define function to fork a new child process
-pid_t
-fork_child_process()
+void
+MultiProcessing::setupChildSocket()
 {
-    // Fork new process
-    pid_t child_pid = fork();
+    int status;
 
-    // Child process
-    if (child_pid == 0)
+    const char* message = "Hello from client";
+
+    if ((client_fd = socket(AF_INET, SOCK_STREAM, 0)) < 0)
     {
-        // Call process_email_data function
-        process_email_data();
-
-        // Exit child process
-        exit(EXIT_SUCCESS);
+        std::cerr << "Socket creation error\n";
+        exit(EXIT_FAILURE);
     }
+    server_addr.sin_family = AF_INET;
+    server_addr.sin_port = htons(PORT);
+    if (inet_pton(AF_INET, "127.0.0.1", &server_addr.sin_addr) <= 0)
+    {
+        std::cerr << "Invalid address/ Address not supported \n";
+        exit(EXIT_FAILURE);
+    }
+    if ((status = connect(client_fd, (struct sockaddr*)&server_addr,
+                          sizeof(server_addr)))
+        < 0)
+    {
+        std::cerr << "Connection failed\n";
+        exit(EXIT_FAILURE);
+    }
+    send(client_fd, message, strlen(message), 0);
+    std::cout << "Child process: Hello message sent\n";
+}
+void
+MultiProcessing::setupParentSocket()
+{
+    // const char* message = "Hello from server";
+    // Create socket
+    if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) < 0)
+    {
+        std::cerr << "Socket failed\n";
+        exit(EXIT_FAILURE);
+    }
+    // Set socket option
+    if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, &opt,
+                   sizeof(opt)))
+    {
+        std::cerr << "setsockopt\n";
+        exit(EXIT_FAILURE);
+    }
+    // Bind socket to address and port
+    address.sin_family = AF_INET;
+    address.sin_addr.s_addr = INADDR_ANY;
+    address.sin_port = htons(PORT);
 
-    // Return child process ID
-    return child_pid;
+    if (bind(server_fd, (struct sockaddr*)&address, sizeof(address)) < 0)
+    {
+        std::cerr << "bind failure\n";
+        exit(EXIT_FAILURE);
+    }
+    // Listen for incoming connections
+    if (listen(server_fd, 3) < 0)
+    {
+        std::cerr << "listen\n";
+        exit(EXIT_FAILURE);
+    }
+    // Accept incoming connection
+    if ((new_socket = accept(server_fd, (struct sockaddr*)&address,
+                             (socklen_t*)&addrlen))
+        < 0)
+    {
+        std::cerr << "accept\n";
+        exit(EXIT_FAILURE);
+    }
+    // Receive message from client
+    if ((valread = read(new_socket, buffer, BUFFER_SIZE)) == -1)
+    {
+        perror("Read failed");
+        exit(EXIT_FAILURE);
+    }
+    std::cout << "Parent process: received message: " << buffer << std::endl;
 }
 
-// Define function to send message to child process
-string
-send_message_to_child(int socket_fd, string message)
+void
+MultiProcessing::setupShareMemory()
 {
-    // Send message to child process
-    send(socket_fd, message.c_str(), message.length(), 0);
-
-    // Wait for response or timeout after 1 second
-    char response[1024];
-    int bytes_received =
-        recv(socket_fd, response, sizeof(response), MSG_DONTWAIT);
-    if (bytes_received > 0)
+    int shm_fd = shm_open(SHM_NAME, O_CREAT | O_RDWR, 0666);
+    if (shm_fd == -1)
     {
-        response[bytes_received] = '\0';
-        return string(response);
+        perror("shm_open");
+        exit(EXIT_FAILURE);
+    }
+    ftruncate(shm_fd, SHM_SIZE);
+    shared_data = static_cast<int*>(
+        mmap(NULL, SHM_SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, shm_fd, 0));
+    close(shm_fd);
+    if (shared_data == MAP_FAILED)
+    {
+        perror("mmap");
+        exit(EXIT_FAILURE);
+    }
+    *shared_data = 1;
+
+    const size_t shm_size = 500;
+    // Create shared memory
+    int shm_id = shmget(IPC_PRIVATE, shm_size, 0666);
+
+    // Attach to shared memory
+    shared_mem = (char*)shmat(shm_id, NULL, 0);
+}
+
+void
+MultiProcessing::child_process()
+{
+    std::cout << "Child process fork\n";
+    // int valread;
+    // char buffer[BUFFER_SIZE] = { 0 };
+    setupChildSocket();
+    // 1. wait for (“is_alive”) message response (“alive”) immediately
+    valread = read(client_fd, buffer, BUFFER_SIZE);
+    if (valread > 0)
+    {
+        buffer[valread] = '\0';
+        std::string message(buffer);
+        if (message == "is_alive")
+        {
+            std::cout << "Child process: received message: " << buffer
+                      << std::endl;
+            std::string response = "alive";
+            send(client_fd, response.c_str(), response.length(), 0);
+            // std::cout << *shared_data << std::endl;
+        }
+    }
+    // EmailClass emailclass;
+    while (1)
+    {
+        // 2. detect shared memory is having data and read it
+        if (strlen(shared_mem) > 0)
+        {
+            std::cout << "Child process: detect shared memory having data\n";
+            std::cout << shared_mem << std::endl;
+            emailclass.process_email_archive();
+            strcpy(shared_mem, "");
+            if (*shared_data >= 5)
+                break;
+        }
+    }
+    valread = read(client_fd, buffer, BUFFER_SIZE);
+    if (valread > 0)
+    {
+        buffer[valread] = '\0';
+        std::string message(buffer);
+        if (message == "shutdown")
+        {
+            std::cout << "Child process: received message: " << buffer
+                      << std::endl;
+            close(client_fd);
+        }
+    }
+}
+int
+MultiProcessing::child_process_fork()
+{
+    pid_t pid_child = fork();
+    if (pid_child == 0)
+    {
+        child_process();
+    }
+    return pid_child;
+}
+void
+MultiProcessing::parent_process()
+{
+    std::cout << "Parent process fork\n";
+    setupParentSocket();
+    emailclass.readContent(1);  // 1.read 1 file
+    std::cout << "READ ONE FILE:\n" << emailclass.message << std::endl;
+    // 2.check alive of process 2
+
+    if (check_child_alive(new_socket))
+    {
+        while (*shared_data <= 5)
+        {
+            // 3. save data to shared memory
+            // std::cout << "Parent process " << *shared_data << std::endl;
+            emailclass.readContent(*shared_data);
+            strcpy(shared_mem, emailclass.message.c_str());
+            sleep(1);
+            // std::cout << "Parent process: got repsonse\n";
+            (*shared_data)++;
+        }
     }
     else
     {
-        // If no response, assume child process is dead
-        return "";
+        executeMultiProcessing();
     }
+    //  4. send shutdown message to client.
+    // const char* message = "Hello from server";
+    const char* message = "shutdown";
+    if (send(new_socket, message, strlen(message), 0) == -1)
+    {
+        perror("Send failed");
+        exit(EXIT_FAILURE);
+    }
+    std::cout << "Sent message: " << message << std::endl;
+
+    // waitpid(pid_child, NULL, 0);
+    wait(NULL);
+    munmap(shared_data, SHM_SIZE);
+    // munmap(email_ptr, SHM_SIZE);
+    shm_unlink("/my_shm");
+    close(new_socket);
+    close(server_fd);
 }
 
-// Define function to process email data
 void
-process_email_data()
+MultiProcessing::executeMultiProcessing()
 {
-    // Create socket connection
-    int socket_fd = socket(AF_INET, SOCK_STREAM, 0);
-    struct sockaddr_in server_address;
-    memset(&server_address, 0, sizeof(server_address));
-    server_address.sin_family = AF_INET;
-    server_address.sin_addr.s_addr = INADDR_ANY;
-    server_address.sin_port = htons(5000);
-    bind(socket_fd, (struct sockaddr*)&server_address, sizeof(server_address));
-    listen(socket_fd, 1);
-
-    // Wait for connection from parent process
-    struct sockaddr_in client_address;
-    socklen_t client_address_size = sizeof(client_address);
-    int client_fd = accept(socket_fd, (struct sockaddr*)&client_address,
-                           &client_address_size);
-
-    // Continuously read and process email data
-    while (true)
+    setupShareMemory();
+    // Email email =
+    pid_t pid_child = child_process_fork();
+    if (pid_child > 0)
     {
-        // Check if shared memory has data
-        if (shared_memory->size() > 0)
-        {
-            // Get email data from shared memory
-            Email email = shared_memory->at(0);
-
-            // Log email data to CSV file
-            ofstream file("email_archive.csv", ofstream::app);
-            if (file.is_open())
-            {
-                file << email.sender << ";" << email.receiver << ";"
-                     << email.content << endl;
-                file.close();
-            }
-
-            // Remove email data from shared memory
-            shared_memory->erase(shared_memory->begin());
-        }
-
-        // Check for incoming messages
-        char buffer[1024];
-        int bytes_received =
-            recv(client_fd, buffer, sizeof(buffer), MSG_DONTWAIT);
-        if (bytes_received > 0)
-        {
-            buffer[bytes_received] = '\0';
-            string message(buffer);
-            if (message == "shutdown")
-            {
-                // If "shutdown" message received, terminate child process
-                break;
-            }
-            else if (message == "is_alive")
-            {
-                // If "is_alive" message received, send "alive" message back
-                // immediately
-                string response = "alive";
-                send(client_fd, response.c_str(), response.length(), 0);
-            }
-        }
-
-        // Close socket connection
-        close(client_fd);
-        close(socket_fd);
+        parent_process();
     }
-
-    int main()
-    {
-        // Create shared memory object for email data
-        vector<Email>* shared_memory = (vector<Email>*)mmap(
-            NULL, sizeof(vector<Email>), PROT_READ | PROT_WRITE,
-            MAP_SHARED | MAP_ANONYMOUS, -1, 0);
-        if (shared_memory == MAP_FAILED)
-        {
-            cerr << "Error: Failed to create shared memory" << endl;
-            exit(EXIT_FAILURE);
-        }
-
-        // Fork child process to handle email data
-        pid_t child_pid = fork_child_process();
-
-        // Read email data from files and send to child process
-        for (int i = 1; i <= 5; i++)
-        {
-            // Read email data from file
-            string filename = "email" + to_string(i) + ".txt";
-            Email email = read_email_file(filename);
-
-            // Check if child process is alive
-            if (is_child_alive(child_pid, socket_fd))
-            {
-                // Store email data in shared memory
-                shared_memory->push_back(email);
-            }
-            else
-            {
-                // Fork new child process and store email data in shared memory
-                child_pid = fork_child_process();
-                shared_memory->push_back(email);
-            }
-
-            // Wait for child process to log email data to CSV file
-            usleep(100000);
-        }
-
-        // Send "shutdown" message to child process
-        send_message_to_child(socket_fd, "shutdown");
-
-        // Wait for child process to terminate
-        waitpid(child_pid, NULL, 0);
-
-        // Unmap shared memory
-        munmap(shared_memory, sizeof(vector<Email>));
-    }
-    // int main()
-    // {
-    //     // Create shared memory object for email data
-    //     vector<Email>* shared_memory = (vector<Email>*)mmap(
-    //         NULL, sizeof(vector<Email>), PROT_READ | PROT_WRITE,
-    //         MAP_SHARED | MAP_ANONYMOUS, -1, 0);
-    //     if (shared_memory == MAP_FAILED)
-    //     {
-    //         cerr << "Error: Failed to create shared memory" << endl;
-    //         exit(EXIT_FAILURE);
-    //     }
-
-    //     // Fork child process to handle email data
-    //     pid_t child_pid = fork_child_process();
-
-    //     // Read email data from files and send to child process
-    //     for (int i = 1; i <= 5; i++)
-    //     {
-    //         // Read email data from file
-    //         string filename = "email" + to_string(i) + ".txt";
-    //         Email email = read_email_file(filename);
-
-    //         // Check if child process is alive
-    //         if (is_child_alive(child_pid, socket_fd))
-    //         {
-    //             // Store email data in shared memory
-    //             shared_memory->push_back(email);
-    //         }
-    //         else
-    //         {
-    //             // Fork new child process and store email data in shared
-    //             memory child_pid = fork_child_process();
-    //             shared_memory->push_back(email);
-    //         }
-
-    //         // Wait for child process to log email data to CSV file
-    //         usleep(100000);
-    //     }
-
-    //     // Send "shutdown" message to child process
-    //     send_message_to_child(socket_fd, "shutdown");
-
-    //     // Wait for child process to terminate
-    //     waitpid(child_pid, NULL, 0);
-
-    //     // Unmap shared memory
-    //     munmap(shared_memory, sizeof(vector<Email>));
-    // }
+}
+// int
+// main(int argc, char const* argv[])
+// {
+//     return 0;
+// }

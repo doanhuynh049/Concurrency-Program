@@ -6,6 +6,7 @@
 #include "../include/session1/multithreading.h"
 #include "../include/session1/mutex_multithreading.h"
 #include "../include/session1/named-pipe.h"
+#include "../include/session2/multiprocessing.h"
 
 int
 main()
@@ -19,9 +20,11 @@ main()
     // MultiThreading* multithreading = new MultiThreading();
     // multithreading->executeMultiThreading();
     // implementFork12();
-    MuTex* mutex = new MuTex();
-    mutex->executeMutex();
+    // MuTex* mutex = new MuTex();
+    // mutex->executeMutex();
     // ConditionVar conditionvar;
     // conditionvar.executeConditionVar();
+    MultiProcessing multiprocessing;
+    multiprocessing.executeMultiProcessing();
     return 0;
 }
