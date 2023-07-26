@@ -391,7 +391,6 @@ parent_process()
         if (check_child_alive(pid_child, new_socket))
         {
             // 3. save data to shared memory
-            //
             strcpy(shared_mem, message.c_str());
             std::cout << "Parent process: got repsonse\n";
         }
