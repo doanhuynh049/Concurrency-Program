@@ -1,8 +1,9 @@
 # ninja log v5
-8	499	1689843509271954200	CMakeFiles/my_executable.dir/src/session1/named-pipe.cpp.o	e4127e788dff1f84
-5	537	1689843509308954500	CMakeFiles/my_executable.dir/src/session1/fork.cpp.o	254010483650bec8
-0	594	1689843509367986900	CMakeFiles/my_executable.dir/src/main.cpp.o	41072e7deacbf3b2
-16	674	1689843509447986500	CMakeFiles/my_executable.dir/src/session1/mutex_multithreading.cpp.o	a61eba5df9bbd5f5
-20	700	1689843509473987700	CMakeFiles/my_executable.dir/src/session1/multithreading.cpp.o	b69e20d22f96764a
-12	713	1689843509487014900	CMakeFiles/my_executable.dir/src/session1/condition_var.cpp.o	5d2c9aee697a491
-713	885	0	build/bin/my_executable	42bed8f70ab2db9a
+10	543	1690359800927315600	CMakeFiles/my_executable.dir/src/session1/named-pipe.cpp.o	e4127e788dff1f84
+6	603	1690359800995838200	CMakeFiles/my_executable.dir/src/session1/fork.cpp.o	254010483650bec8
+4	546	1690360888602833700	CMakeFiles/my_executable.dir/src/main.cpp.o	41072e7deacbf3b2
+17	792	1690359801180187200	CMakeFiles/my_executable.dir/src/session1/mutex_multithreading.cpp.o	a61eba5df9bbd5f5
+13	819	1690359801210417100	CMakeFiles/my_executable.dir/src/session1/condition_var.cpp.o	5d2c9aee697a491
+21	758	1690359801149869100	CMakeFiles/my_executable.dir/src/session1/multithreading.cpp.o	b69e20d22f96764a
+3	170	0	build/bin/my_executable	66ca27c456184eb
+8	498	1690360539627993400	CMakeFiles/my_executable.dir/src/session2/multiprocessing.cpp.o	1016fbfa16d9ce32
