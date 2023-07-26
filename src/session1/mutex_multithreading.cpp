@@ -1,18 +1,19 @@
-#include "../include/multithreading.h"
+#include "../../include/session1/mutex_multithreading.h"
 #include <iostream>
 #include <thread>
 #include <vector>
-
 void
-MultiThreading::task(int id)
+MuTex::task(int id)
 {
     std::cout << "Task " << id << " started" << std::endl;
-    data += 10;
+    mtx.lock();
+    data++;
     std::cout << "Data: " << data << std::endl;
+    mtx.unlock();
     std::cout << "Task" << id << " completed" << std::endl;
 }
 void
-MultiThreading::executeMultiThreading()
+MuTex::executeMutex()
 {
     std::cout << "Main thread started" << std::endl;
     int num_threads = std::thread::hardware_concurrency();
@@ -25,7 +26,7 @@ MultiThreading::executeMultiThreading()
 
     for (int i = 0; i < num_threads; i++)
     {
-        threads.emplace_back(&MultiThreading::task, this, i + 1);
+        threads.emplace_back(&MuTex::task, this, i + 1);
     }
     for (auto& thread : threads)
     {

@@ -51,33 +51,47 @@ build CMakeFiles/my_executable.dir/src/main.cpp.o: CXX_COMPILER__my_executable_ 
   OBJECT_DIR = CMakeFiles/my_executable.dir
   OBJECT_FILE_DIR = CMakeFiles/my_executable.dir/src
 
-build CMakeFiles/my_executable.dir/src/fork.cpp.o: CXX_COMPILER__my_executable_ /home/quat/Concurrency-Program/src/fork.cpp || cmake_object_order_depends_target_my_executable
-  DEP_FILE = CMakeFiles/my_executable.dir/src/fork.cpp.o.d
+build CMakeFiles/my_executable.dir/src/session1/fork.cpp.o: CXX_COMPILER__my_executable_ /home/quat/Concurrency-Program/src/session1/fork.cpp || cmake_object_order_depends_target_my_executable
+  DEP_FILE = CMakeFiles/my_executable.dir/src/session1/fork.cpp.o.d
   FLAGS = -std=gnu++17
   INCLUDES = -I/include
   OBJECT_DIR = CMakeFiles/my_executable.dir
-  OBJECT_FILE_DIR = CMakeFiles/my_executable.dir/src
+  OBJECT_FILE_DIR = CMakeFiles/my_executable.dir/src/session1
 
-build CMakeFiles/my_executable.dir/src/named-pipe.cpp.o: CXX_COMPILER__my_executable_ /home/quat/Concurrency-Program/src/named-pipe.cpp || cmake_object_order_depends_target_my_executable
-  DEP_FILE = CMakeFiles/my_executable.dir/src/named-pipe.cpp.o.d
+build CMakeFiles/my_executable.dir/src/session1/named-pipe.cpp.o: CXX_COMPILER__my_executable_ /home/quat/Concurrency-Program/src/session1/named-pipe.cpp || cmake_object_order_depends_target_my_executable
+  DEP_FILE = CMakeFiles/my_executable.dir/src/session1/named-pipe.cpp.o.d
   FLAGS = -std=gnu++17
   INCLUDES = -I/include
   OBJECT_DIR = CMakeFiles/my_executable.dir
-  OBJECT_FILE_DIR = CMakeFiles/my_executable.dir/src
+  OBJECT_FILE_DIR = CMakeFiles/my_executable.dir/src/session1
 
-build CMakeFiles/my_executable.dir/src/mutex_multithreading.cpp.o: CXX_COMPILER__my_executable_ /home/quat/Concurrency-Program/src/mutex_multithreading.cpp || cmake_object_order_depends_target_my_executable
-  DEP_FILE = CMakeFiles/my_executable.dir/src/mutex_multithreading.cpp.o.d
+build CMakeFiles/my_executable.dir/src/session1/condition_var.cpp.o: CXX_COMPILER__my_executable_ /home/quat/Concurrency-Program/src/session1/condition_var.cpp || cmake_object_order_depends_target_my_executable
+  DEP_FILE = CMakeFiles/my_executable.dir/src/session1/condition_var.cpp.o.d
   FLAGS = -std=gnu++17
   INCLUDES = -I/include
   OBJECT_DIR = CMakeFiles/my_executable.dir
-  OBJECT_FILE_DIR = CMakeFiles/my_executable.dir/src
+  OBJECT_FILE_DIR = CMakeFiles/my_executable.dir/src/session1
 
-build CMakeFiles/my_executable.dir/src/multithreading.cpp.o: CXX_COMPILER__my_executable_ /home/quat/Concurrency-Program/src/multithreading.cpp || cmake_object_order_depends_target_my_executable
-  DEP_FILE = CMakeFiles/my_executable.dir/src/multithreading.cpp.o.d
+build CMakeFiles/my_executable.dir/src/session1/mutex_multithreading.cpp.o: CXX_COMPILER__my_executable_ /home/quat/Concurrency-Program/src/session1/mutex_multithreading.cpp || cmake_object_order_depends_target_my_executable
+  DEP_FILE = CMakeFiles/my_executable.dir/src/session1/mutex_multithreading.cpp.o.d
   FLAGS = -std=gnu++17
   INCLUDES = -I/include
   OBJECT_DIR = CMakeFiles/my_executable.dir
-  OBJECT_FILE_DIR = CMakeFiles/my_executable.dir/src
+  OBJECT_FILE_DIR = CMakeFiles/my_executable.dir/src/session1
+
+build CMakeFiles/my_executable.dir/src/session1/multithreading.cpp.o: CXX_COMPILER__my_executable_ /home/quat/Concurrency-Program/src/session1/multithreading.cpp || cmake_object_order_depends_target_my_executable
+  DEP_FILE = CMakeFiles/my_executable.dir/src/session1/multithreading.cpp.o.d
+  FLAGS = -std=gnu++17
+  INCLUDES = -I/include
+  OBJECT_DIR = CMakeFiles/my_executable.dir
+  OBJECT_FILE_DIR = CMakeFiles/my_executable.dir/src/session1
+
+build CMakeFiles/my_executable.dir/src/session2/multiprocessing.cpp.o: CXX_COMPILER__my_executable_ /home/quat/Concurrency-Program/src/session2/multiprocessing.cpp || cmake_object_order_depends_target_my_executable
+  DEP_FILE = CMakeFiles/my_executable.dir/src/session2/multiprocessing.cpp.o.d
+  FLAGS = -std=gnu++17
+  INCLUDES = -I/include
+  OBJECT_DIR = CMakeFiles/my_executable.dir
+  OBJECT_FILE_DIR = CMakeFiles/my_executable.dir/src/session2
 
 
 # =============================================================================
@@ -87,7 +101,7 @@ build CMakeFiles/my_executable.dir/src/multithreading.cpp.o: CXX_COMPILER__my_ex
 #############################################
 # Link the executable build/bin/my_executable
 
-build build/bin/my_executable: CXX_EXECUTABLE_LINKER__my_executable_ CMakeFiles/my_executable.dir/src/main.cpp.o CMakeFiles/my_executable.dir/src/fork.cpp.o CMakeFiles/my_executable.dir/src/named-pipe.cpp.o CMakeFiles/my_executable.dir/src/mutex_multithreading.cpp.o CMakeFiles/my_executable.dir/src/multithreading.cpp.o
+build build/bin/my_executable: CXX_EXECUTABLE_LINKER__my_executable_ CMakeFiles/my_executable.dir/src/main.cpp.o CMakeFiles/my_executable.dir/src/session1/fork.cpp.o CMakeFiles/my_executable.dir/src/session1/named-pipe.cpp.o CMakeFiles/my_executable.dir/src/session1/condition_var.cpp.o CMakeFiles/my_executable.dir/src/session1/mutex_multithreading.cpp.o CMakeFiles/my_executable.dir/src/session1/multithreading.cpp.o CMakeFiles/my_executable.dir/src/session2/multiprocessing.cpp.o
   OBJECT_DIR = CMakeFiles/my_executable.dir
   POST_BUILD = cd /home/quat/Concurrency-Program && /home/quat/Concurrency-Program/build/bin/my_executable && /usr/bin/cmake -E remove /home/quat/Concurrency-Program/build/bin/my_executable
   PRE_LINK = :

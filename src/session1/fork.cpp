@@ -1,4 +1,4 @@
-#include "../include/fork.h"
+#include "../../include/session1/fork.h"
 
 #include <fcntl.h>
 #include <sys/mman.h>  //used to map the shared memory object
