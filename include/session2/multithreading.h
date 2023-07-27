@@ -1,6 +1,7 @@
 #ifndef MULTITHREADING_H
 #define MULTITHREADING_H
 
+#include <unistd.h>
 #include <chrono>
 #include <condition_variable>
 #include <fstream>
@@ -13,6 +14,7 @@
 #include <unordered_map>
 #include <vector>
 
+const int MAX_THREADS = 10;
 const int NUM_CENCORS = 10;
 
 class MainThread
@@ -22,6 +24,7 @@ private:
     std::queue<std::pair<std::string, int>> messageQueue;
     std::mutex mtx;
     std::condition_variable cv;
+    std::vector<std::thread> threads;
 
 public:
     struct Message

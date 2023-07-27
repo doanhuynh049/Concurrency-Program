@@ -1,4 +1,4 @@
-SRC = main.cpp multiprocessing.cpp
+SRC = main.cpp multiprocessing.cpp multithreading.cpp
 OBJ = $(SRC:.cpp=.o)
 
 CXX = g++

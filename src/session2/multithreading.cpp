@@ -18,7 +18,7 @@ MainThread::simulateCencor()
     std::uniform_int_distribution<> dis(1, 10);
     // Start a thread manage 10 status
 
-    for (int j = 0; j < 3; j++)
+    for (int j = 0; j < 100; j++)
     {
         for (int i = 1; i <= 10; i++)
         {
@@ -30,7 +30,7 @@ MainThread::simulateCencor()
             // std::cout << messageQueue;
         }
         // std::cout << j;
-        printMessageQueue();
+        // printMessageQueue();
 
         std::this_thread::sleep_for(std::chrono::seconds(1));
     }
@@ -73,9 +73,16 @@ MainThread::handleCencor()
     // std::cout << "multithreading";
     while (true)
     {
+        // std::cout << "handle\n";
+        // std::cout << messageQueue.empty();
+        if (messageQueue.empty())
+        {
+            // std::cout << "empty\n";
+            continue;
+        }
         std::unique_lock<std ::mutex> lock(mtx);
         cv.wait(lock, [this] { return !messageQueue.empty(); });
-        if (messageQueue.empty())
+        if (threads.size() > MAX_THREADS)
         {
             continue;
         }
@@ -103,7 +110,7 @@ void
 MainThread::implementMultiThreading()
 {
     std::thread t1(&MainThread::simulateCencor, this);
-    std::vector<std::thread> threads;
+
     for (int i = 0; i < 3; i++)
     {
         threads.emplace_back(&MainThread::handleCencor, this);
@@ -115,11 +122,12 @@ MainThread::implementMultiThreading()
         thread.join();
     }
 }
-int
-main()
-{
-    MainThread mainthread;
-    mainthread.init();
-    mainthread.implementMultiThreading();
-    // mainthread.cleanLogfile();
-}
+// int
+// main()
+// {
+//     MainThread mainthread;
+//     mainthread.init();
+//     mainthread.implementMultiThreading();
+//     // sleep(10);
+//     // mainthread.cleanLogfile();
+// }

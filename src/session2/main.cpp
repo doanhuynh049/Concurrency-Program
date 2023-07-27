@@ -1,5 +1,7 @@
 #include <iostream>
 #include "../../include/session2/multiprocessing.h"
+#include "../../include/session2/multithreading.h"
+
 // void
 // readEmail()
 // {
@@ -12,7 +14,13 @@
 int
 main()
 {
-    MultiProcessing multiprocessing;
-    multiprocessing.executeMultiProcessing();
-    return 0;
+    MainThread mainthread;
+    mainthread.init();
+    mainthread.implementMultiThreading();
+    // mainthread.cleanLogfile();
+    // sleep(10);
+    // mainthread.cleanLogfile();
+    // MultiProcessing multiprocessing;
+    // multiprocessing.executeMultiProcessing();
+    // return 0;
 }
