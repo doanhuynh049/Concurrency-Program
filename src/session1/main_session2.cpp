@@ -1,7 +1,7 @@
-#include "../../include/session1/socket.h"
+#include "../../include/session1/stream_socket.h"
 
 int
 main()
 {
-    implementSocket();
+    implementStreamSocket();
 }

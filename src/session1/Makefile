@@ -1,4 +1,4 @@
-SRC = main_session2.cpp socket.cpp
+SRC = main_session2.cpp stream_socket.cpp
 OBJ = $(SRC:.cpp=.o)
 
 CXX = g++
@@ -8,6 +8,7 @@ EXEC = run
 
 PHONY = all
 all: $(EXEC)
+	./$(EXEC)
 
 $(EXEC): $(OBJ)
 	$(CXX) $(OBJ) -o $(EXEC) 
