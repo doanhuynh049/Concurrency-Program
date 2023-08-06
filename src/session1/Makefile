@@ -1,4 +1,4 @@
-SRC = main_session2.cpp stream_socket.cpp
+SRC = main_session1.cpp stream_socket.cpp datagram_socket.cpp 
 OBJ = $(SRC:.cpp=.o)
 
 CXX = g++
