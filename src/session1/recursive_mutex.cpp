@@ -7,7 +7,7 @@ function(int i)
               << std::endl;
     if (i > 1)
     {
-        function(i - 1)
+        function(i - 1);
     }
     std::cout << "Thread " << std::this_thread::get_id() << "releasing lock"
               << std::endl;
