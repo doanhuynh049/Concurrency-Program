@@ -6,19 +6,6 @@ const int SHM_SIZE = sizeof(int);
 
 char* shared_mem;
 int* shared_data;
-// std::string message;
-// void
-// EmailClass::display_emails(std::vector<Email> emails)
-// {
-//     for (auto email : emails)
-//     {
-//         std::cout << "From: " << email.sender << std::endl;
-//         std::cout << "To: " << email.receiver << std::endl;
-//         std::cout << "Content: " << std::endl;
-//         std::cout << email.content << std::endl;
-//         std::cout << std::endl;
-//     }
-// }
 
 Email
 EmailClass::exstractMessage()
@@ -43,33 +30,6 @@ EmailClass::exstractMessage()
     return email;
 }
 
-// void
-// EmailClass::read_email_file(std::vector<Email>& emails)
-// {
-//     for (int i = 1; i <= 5; i++)
-//     {
-//         std::string filename =
-//             "../../email/email_file" + std::to_string(i) + ".txt";
-
-//         std::ifstream file(filename);
-//         std::string line;
-//         Email email;
-//         if (file.is_open())
-//         {
-//             getline(file, line);
-//             email.sender = line.substr(line.find(":") + 2);
-//             getline(file, line);
-//             email.receiver = line.substr(line.find(":") + 2);
-//             std::stringstream buffer;
-//             buffer << file.rdbuf();
-//             email.content = buffer.str();
-//             file.close();
-//         }
-//         emails.push_back(email);
-//         file.close();
-//     }
-//     // display_emails(emails);
-// }
 void
 EmailClass::readContent(int i)
 {
@@ -133,28 +93,6 @@ EmailClass::process_email_archive()
         file_open.close();
     }
 }
-// Email
-// EmailClass::read_email_csv(std::string filename)
-// {
-//     Email emails;
-//     std::ifstream file(filename);
-//     std::string line;
-//     // int i = std::cout << std::getline(file, line) << std::endl;
-//     getline(file, line);
-//     while (getline(file, line))
-//     {
-//         std::stringstream ss(line);
-//         std::string sender, receiver, content;
-//         getline(ss, sender, ';');
-//         getline(ss, receiver, ';');
-//         getline(ss, content, ';');
-//         emails.sender.push_back(sender);
-//         emails.receiver.push_back(receiver);
-//         emails.content.push_back(content);
-//     }
-
-//     return emails;
-// }
 
 bool
 MultiProcessing::check_child_alive(int socket_fd)
